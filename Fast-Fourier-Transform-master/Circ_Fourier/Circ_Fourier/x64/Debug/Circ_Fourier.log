@@ -1,9 +1,5 @@
-﻿  complex.cc
-  main.cpp
-g:\fast-fourier-transform-master\fast-fourier-transform-master\ai.hh(425): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-g:\fast-fourier-transform-master\fast-fourier-transform-master\circulant_tools.h(59): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-g:\fast-fourier-transform-master\fast-fourier-transform-master\circulant_tools.h(67): warning C4244: 'argument': conversion from 'long double' to 'const unsigned __int64', possible loss of data
-g:\fast-fourier-transform-master\fast-fourier-transform-master\circulant_tools.h(74): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-g:\fast-fourier-transform-master\fast-fourier-transform-master\circulant_tools.h(101): warning C4244: 'argument': conversion from 'double' to 'const unsigned __int64', possible loss of data
-  Generating Code...
-  Circ_Fourier.vcxproj -> G:\Fast-Fourier-Transform-master\Fast-Fourier-Transform-master\Circ_Fourier\x64\Debug\Circ_Fourier.exe
+﻿  main.cpp
+c:\users\никита\downloads\fast-fourier-transform-master\fast-fourier-transform-master\fast-fourier-transform-master\ai.hh(425): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  complex.cc
+  Создание кода...
+  Circ_Fourier.vcxproj -> C:\Users\Никита\Downloads\Fast-Fourier-Transform-master\Fast-Fourier-Transform-master\Fast-Fourier-Transform-master\Circ_Fourier\x64\Debug\Circ_Fourier.exe

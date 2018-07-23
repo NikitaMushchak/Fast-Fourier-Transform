@@ -18,12 +18,12 @@
 // edited by N.D. Mushchak 19.07
 ////////////////////////////////
 //defines
-typedef std::vector<double> Complex;
-typedef std::vector<Complex> CArray;
-typedef std::vector<CArray> CMatrix;
+typedef std::vector<long double> Complex;
+typedef std::vector < std::vector <long double >> CArray;
+//typedef std::vector<CArray> CMatrix;
 
 // pi
-#define PI 3.141592653589793238460;
+#define PI 3.141592653589793238460L;
 
 
 
