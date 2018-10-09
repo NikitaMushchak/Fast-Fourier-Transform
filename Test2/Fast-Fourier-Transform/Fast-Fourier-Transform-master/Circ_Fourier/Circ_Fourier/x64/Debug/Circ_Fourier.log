@@ -1,0 +1,5 @@
+﻿  main.cpp
+c:\users\никита\downloads\fast-fourier-transform-master\fast-fourier-transform-master\fast-fourier-transform-master\ai.hh(425): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  complex.cc
+  Создание кода...
+  Circ_Fourier.vcxproj -> C:\Users\Никита\Downloads\Fast-Fourier-Transform-master\Fast-Fourier-Transform-master\Fast-Fourier-Transform-master\Circ_Fourier\x64\Debug\Circ_Fourier.exe
