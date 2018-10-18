@@ -1,0 +1,30 @@
+{
+    "model": "planar3D",
+    "time": 10,
+    "mesh": {
+        "height": 64,
+        "lenght": 32,
+        "cell": {
+            "height": 4.63984,
+            "length": 4.63984
+        }
+    },
+    "fluid": {
+        "0": {
+            "start time": 0,
+            "stop time": 10,
+            "injection": 0.08,
+            "rheology index": 1,
+            "viscosity": 0.4
+        }
+    },
+    "proppant": {
+        "0": {
+            "start time": 0,
+            "stop time": 10,
+            "injection": 0
+        }
+    },
+    "layers": {
+    }
+}
