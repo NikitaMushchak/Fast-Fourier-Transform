@@ -111,3 +111,86 @@ inline void ifft20(std::vector< std::vector<double> > &vector){
         vector[i][0] /= length;
     }
 }
+
+void fft20_RealSymm(std::vector<std::vector<double>> &Vector) {
+
+    std::size_t N = Vector.size();
+    std::size_t N_2 = N;
+	N_2>>=1;
+	
+	std::cout<<"N_2= "<<N_2<<std::endl;
+
+    double thetaT = 3.14159265358979 / N;
+    double swap0 = 0.;
+    //double swap1 = 0.;
+    double T0 = 1.;
+    double T1 = 0.;
+    double phiT0 = cos(thetaT);
+    double phiT1 = -sin(thetaT);
+
+	std::vector<std::vector<double>> vector;
+	vector.resize(N_2);
+	for (size_t i =0 ; i<N_2 ; ++i)
+	{
+		vector.resize(2);
+	}
+    //std::vector<double> vector0, vector1;
+    //vector0.resize(N_2);
+    //vector1.resize(N_2);
+
+    std::size_t i;
+    for (i = 0; i < N_2; ++i) { vector[i][0] = Vector[2*i][0]; vector[i][1] = 0; }
+
+    fft20(vector);
+
+    for (i = 0; i < N; ++i) {
+
+        double Re_X_ = T0 * vector[i%N_2][0] - T1 * vector[i%N_2][0];
+
+        Vector[i][0] =  2 * T0 * Re_X_;
+        Vector[i][0] = -2 * T1 * Re_X_;
+
+        swap0 = T0;
+
+        T0 = swap0 * phiT0 - T1 * phiT1;
+        T1 = swap0 * phiT1 + T1 * phiT0;
+    }
+}
+void ifft20_RealSymm(std::vector<std::vector<double>> &Vector) {
+
+    std::size_t N = Vector.size();
+    std::size_t N_2 = N ;
+	N_2>>=1;
+	std::cout<<"N_2= "<<N_2<<std::endl;
+	
+	std::vector<std::vector<double>> vector;
+	
+	vector.resize(N_2);
+	
+	for (size_t i = 0 ; i < N_2 ; ++i)
+	{
+		vector[2].resize(2);
+	}
+
+  // std::vector<double> vector0, vector1;
+    //vector0.resize(N_2);
+   // vector1.resize(N_2);
+
+    std::size_t i;
+    for (i = 0; i < N_2; ++i) {
+        //vector0[i] = (ReVector[i + N_2] + ReVector[i]) / 2;
+        //vector1[i] = (ImVector[i + N_2] + ImVector[i]) / 2;
+		
+		
+		vector[i][0] = (Vector[i + N_2][0] + Vector[i][0]) / 2;
+		vector[i][1] = (Vector[i + N_2][1] + Vector[i][1]) / 2;
+    }
+
+    ifft20(vector);
+
+    for (i = 0; i < N_2; ++i) {
+
+        Vector[2 * i][0] = Vector[N - 1 - 2 * i][0] = vector[i][0];
+        Vector[2 * i][1] = Vector[N - 1 - 2 * i][1] = 0.;
+    }
+}

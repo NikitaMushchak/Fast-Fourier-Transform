@@ -3,11 +3,11 @@
 
 #include "ai.hh"
 
-inline void getWiseElement2(
+inline void getWiseElement21(
     std::vector<double> &a0, std::vector<double> &a1,
     std::vector<double> &b0, std::vector<double> &b1,
     std::vector<double> &c0, std::vector<double> &c1){
-    std::size_t length = a.size();
+    std::size_t length = a1.size();
 
     for(std::size_t i = 0; i < length; ++i){
         double  c0i   = a0[i] * b0[i] - a1[i] * b1[i];
@@ -16,7 +16,7 @@ inline void getWiseElement2(
     }
 }
 
-inline void conjugate2(std::vector<double> &vector0, std::vector<double> &vector1){
+inline void conjugate21(std::vector<double> &vector0, std::vector<double> &vector1){
     std::size_t length = vector0.size();
 
     for(std::size_t i = 0; i < length; ++i){
@@ -24,7 +24,7 @@ inline void conjugate2(std::vector<double> &vector0, std::vector<double> &vector
     }
 }
 
-inline void fft2(std::vector<double> &vector0, std::vector<double> &vector1){
+inline void fft21(std::vector<double> &vector0, std::vector<double> &vector1){
     std::size_t k = vector0.size();
     std::size_t j = 0;
     std::size_t n = 0;
@@ -100,12 +100,12 @@ inline void fft2(std::vector<double> &vector0, std::vector<double> &vector1){
     }
 }
 
-inline void ifft2(std::vector<double> &vector0, std::vector<double> &vector1){
+inline void ifft21(std::vector<double> &vector0, std::vector<double> &vector1){
     const double length = (double) vector0.size();
 
     conjugate2(vector0, vector1);
 
-    fft2(vector0, vector1);
+    fft21(vector0, vector1);
 
     for(std::size_t i = 0; i < length; ++i){
         vector0[i] /= length;
@@ -119,7 +119,7 @@ inline void ifft2(std::vector<double> &vector0, std::vector<double> &vector1){
 //             т.е. ReVector[i] == ReVector[N - 1 - i],     ImVector[i] == 0
 //             - на входе fft2_RealSymm, и на выходе ifft2_RealSymm
 
-void fft2_RealSymm(std::vector<double> &ReVector, std::vector<double> &ImVector) {
+void fft21_RealSymm(std::vector<double> &ReVector, std::vector<double> &ImVector) {
 
     std::size_t N = ReVector.size();
     std::size_t N_2 = N / 2;
@@ -138,7 +138,7 @@ void fft2_RealSymm(std::vector<double> &ReVector, std::vector<double> &ImVector)
     std::size_t i;
     for (i = 0; i < N_2; ++i) { vector0[i] = ReVector[2 * i]; vector1[i] = 0; }
 
-    fft2(vector0, vector1);
+    fft21(vector0, vector1);
 
     for (i = 0; i < N; ++i) {
 
@@ -154,7 +154,7 @@ void fft2_RealSymm(std::vector<double> &ReVector, std::vector<double> &ImVector)
     }
 }
 
-void ifft2_RealSymm(std::vector<double> &ReVector, std::vector<double> &ImVector) {
+void ifft21_RealSymm(std::vector<double> &ReVector, std::vector<double> &ImVector) {
 
     std::size_t N = ReVector.size();
     std::size_t N_2 = N / 2;
@@ -169,7 +169,7 @@ void ifft2_RealSymm(std::vector<double> &ReVector, std::vector<double> &ImVector
         vector1[i] = (ImVector[i + N_2] + ImVector[i]) / 2;
     }
 
-    ifft2(vector0, vector1);
+    ifft21(vector0, vector1);
 
     for (i = 0; i < N_2; ++i) {
 

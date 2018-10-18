@@ -22,16 +22,29 @@ int main()
 	}
 
 	// generate vector
-    std::vector<double> vectDirect0, vectDirect1, vectDirect2, vectDirect3, influence, influence1, influencef;
+    std::vector<double> vectDirect0, vectDirect1, vectDirect2, vectDirect3, influence, influence1;
+	std::vector<std::vector<double>> influencef;
+	std::vector<std::vector<double>> opening;
     vectDirect1.resize(N);
     vectDirect2.resize(N);
     vectDirect3.resize(N);
 	influence.resize(N);
+	influence1.resize(N);
 	influencef.resize(N);
+	opening.resize(N);
+	
+	
 	for (size_t i = 0 ; i < N;++i)
 	{
 		influencef[i].resize(2);
-	}
+		influencef[i][0]=0.;
+		influencef[i][1]=0.;
+		
+		opening[i].resize(2);
+		opening[i][0] = 0.;
+		opening[i][1] = 0.;
+		}
+	// std::cout << "ger"<<std::endl;
 	// vector with complex data
 	//std::cout << "vector of expantion " << std::endl;
 
@@ -49,20 +62,38 @@ int main()
 		// ai::printVector(influence);
 
 			double Norm = 0;
-
+			// std::cout<<" Pre vector"<<std::endl;
         for (size_t i = 0; i < N; i++)
         {
-            vectDirect1[i] = vectDirect3[i] = 0;
-			influence1.push_back(0.);
-			influencef[i][0]=influence[i]);
+           vectDirect1[i] = vectDirect3[i]=influence1[i] = 0;
+			// influence1[i]=0;
+			opening[i][0] = vectDirect0[i];
+			influencef[i][0]=influence[i];
             double n1 = vectDirect0[i];
             Norm += n1 * n1;
         }
+		// std::cout<<"vector"<<std::endl;
 		 // ai::printVector(vectDirect1);
         // Norm /= N;
         // Norm = sqrt(Norm);
-
-
+		
+		
+		
+		fft20(influencef);
+		std::vector<std::vector<double>> p ;
+		p.resize(N);
+		for (size_t i = 0 ; i<N; ++i)
+		{
+		p[i].resize(2);
+		}
+		auto tn1 = ai::time();
+		fft20_RealSymm(opening);
+		getWiseElement20(influencef, opening, p);
+		ifft20_RealSymm(p);
+		auto tn2 = ai::time();
+		std::cout << "Time c = "<<ai::duration(tn1 , tn2 , "us ")<<" us"<<std::endl;
+		
+		
         fft2(vectDirect2, vectDirect3);
 
 
@@ -84,19 +115,46 @@ int main()
         // eps_r /= N;
         // eps_r = sqrt(eps_r);
         // EpsRe += eps_r;
-
-		auto time1 = ai::time();
-		fft2_RealSymm(vectDirect0, vectDirect1);
+		std::cout<<"symmetric and real"<<std::endl;
 		std::vector<double> product1, product2;
 		 product1.resize(N);
 		 product2.resize(N);
-		getWiseElement2(vectDirect0, vectDirect1,influence, influence1,product1, product2);
+		auto time1 = ai::time();
+		for (size_t i =0 ; i< 1 ; ++i )
+		{
+		fft2_RealSymm(vectDirect0, vectDirect1);
+		
+		getWiseElement21(vectDirect0, vectDirect1,influence, influence1,product1, product2);
 						//real       imagine
-
+		// std::cout<<"get wise"<<std::endl;
 		ifft2_RealSymm(product1, product2);
+		}
 		auto time2 = ai::time();
+		std::cout<<"Vadim time = "<< ai::duration(time1,time2, "us")<<"us"<<std::endl;
+       
+std::vector<double> product10, product20;
+		 product10.resize(N);
+		 product20.resize(N);
 
-        // ifft2(vectDirect2, vectDirect3);
+std::cout<<"classic"<<std::endl;
+		auto time10 = ai::time();
+		for (size_t j = 0 ; j < 1 ; ++j)
+		{
+		fft2(vectDirect2, vectDirect3);
+		
+		getWiseElement21(vectDirect2, vectDirect3,influence, influence1,product10, product20);
+						//real       imagine
+		// std::cout<<"get wise"<<std::endl;
+		ifft2(product10, product20);
+		}
+		auto time20 = ai::time();
+		std::cout<<"classic duration = "<< ai::duration(time10,time20, "us")<<"us"<<std::endl;
+
+
+
+
+
+	   // ifft2(vectDirect2, vectDirect3);
 
         // double eps = 0;
         // for (size_t i = 0; i < N; i++)
